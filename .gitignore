@@ -1,2 +1,11 @@
 # Idea
 .idea/
+
+# logs
+*.log
+
+# Packages
+node_modules/
+
+# Some unclear file
+package-lock.json

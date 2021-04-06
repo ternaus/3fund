@@ -1,6 +1,4 @@
-'use strict';
-
-const vbtlx_before_dollars = document.getElementById("vbtlx_before_dollars")
+const vbtlxBeforeDollars = document.getElementById("vbtlx_before_dollars")
 const vtsax_before_dollars = document.getElementById("vtsax_before_dollars")
 const vtiax_before_dollars = document.getElementById("vtiax_before_dollars")
 const total_before_dollars = document.getElementById("total_before_dollars")
@@ -28,7 +26,7 @@ const vtiax_to_invest_percent = document.getElementById("vtiax_to_invest_percent
 const result_investing_dollars = document.getElementById("result_investing_dollars")
 
 function compute_total_dollar_amount() {
-    return Number(vbtlx_before_dollars.value) + Number(vtsax_before_dollars.value) + Number(vtiax_before_dollars.value);
+    return Number(vbtlxBeforeDollars.value) + Number(vtsax_before_dollars.value) + Number(vtiax_before_dollars.value);
 }
 
 function render_total_dollar_amount() {
@@ -40,13 +38,13 @@ function compute_fraction_from_dollars(array_dollar_amounts) {
     array_dollar_amounts = array_dollar_amounts.map(x => Number(x))
     const total_sum = array_dollar_amounts.reduce((a, b) => a + b, 0)
 
-    return array_dollar_amounts.map( x => x / total_sum)
+    return array_dollar_amounts.map(x => x / total_sum)
 }
 
 function compute_and_render_before_percents() {
     const total_dollar_amount = compute_total_dollar_amount();
     if (total_dollar_amount > 0) {
-        const fraction_from_dollars = compute_fraction_from_dollars([vbtlx_before_dollars.value, vtsax_before_dollars.value, vtiax_before_dollars.value])
+        const fraction_from_dollars = compute_fraction_from_dollars([vbtlxBeforeDollars.value, vtsax_before_dollars.value, vtiax_before_dollars.value])
 
         vbtlx_before_percent.textContent = print_percent_from_fraction(fraction_from_dollars[0])
         vtsax_before_percent.textContent = print_percent_from_fraction(fraction_from_dollars[1])
@@ -62,7 +60,7 @@ function add_handler_before_dollars(x) {
     })
 }
 
-[vbtlx_before_dollars, vtsax_before_dollars, vtiax_before_dollars].forEach(add_handler_before_dollars)
+[vbtlxBeforeDollars, vtsax_before_dollars, vtiax_before_dollars].forEach(add_handler_before_dollars)
 
 function render_total_target_percent() {
     total_target_percent.textContent = String(Number(vbtlx_target_percent.value) + Number(vtsax_target_percent.value) + Number(vtiax_target_percent.value))
@@ -84,7 +82,7 @@ function round(x, precision) {
 function compute_deltas(fraction_array, before_dollars_array, investment_dollars, total_dollars) {
     const result = Array(3)
 
-    for (let i=0; i < result.length; i++) {
+    for (let i = 0; i < result.length; i++) {
         result[i] = fraction_array[i] * (total_dollars + investment_dollars) - before_dollars_array[i]
     }
     return result
@@ -108,7 +106,7 @@ function print_percent_from_fraction(x) {
 function compute_and_render_investments(x) {
     const total_dollars = compute_total_dollar_amount()
     const fraction_array = [vbtlx_target_percent, vtsax_target_percent, vtiax_target_percent].map(x => Number(x.value) / 100)
-    const before_dollars = [vbtlx_before_dollars, vtsax_before_dollars, vtiax_before_dollars].map(x => Number(x.value))
+    const before_dollars = [vbtlxBeforeDollars, vtsax_before_dollars, vtiax_before_dollars].map(x => Number(x.value))
     const investment_value = Number(investment.value)
 
     const deltas_array = compute_deltas(fraction_array, before_dollars, investment_value, total_dollars)
@@ -139,7 +137,7 @@ function compute_and_render_investments(x) {
 
 }
 
-submit_button.addEventListener("click", (event) =>{
+submit_button.addEventListener("click", (event) => {
     event.preventDefault()
     compute_and_render_investments()
 })
