@@ -38,7 +38,7 @@ function computeTotalDollarAmount() {
 }
 
 function renderTotalDollarAmount() {
-  totalBeforeDollars.textContent = `$${String(computeTotalDollarAmount())}`;
+  totalBeforeDollars.textContent = String(computeTotalDollarAmount());
 }
 
 const computeFractionFromDollars = (arrayDollarAmountsString) => {
