@@ -2,13 +2,16 @@ const vbtlxBeforeDollars = document.getElementById('vbtlx_before_dollars');
 const vtsaxBeforeDollars = document.getElementById('vtsax_before_dollars');
 const vtiaxBeforeDollars = document.getElementById('vtiax_before_dollars');
 const totalBeforeDollars = document.getElementById('total_before_dollars');
+
 const vbtlxBeforePercent = document.getElementById('vbtlx_before_percent');
 const vtsaxBeforePercent = document.getElementById('vtsax_before_percent');
 const vtiaxBeforePercent = document.getElementById('vtiax_before_percent');
+
 const vbtlxTargetPercent = document.getElementById('vbtlx_target_percent');
 const vtsaxTargetPercent = document.getElementById('vtsax_target_percent');
 const vtiaxTargetPercent = document.getElementById('vtiax_target_percent');
 const totalTargetPercent = document.getElementById('total_target_percent');
+
 const submitButton = document.getElementById('submit_button');
 const investment = document.getElementById('investment');
 const vbtlxToInvest = document.getElementById('vbtlx_to_invest');
@@ -42,7 +45,7 @@ function renderTotalDollarAmount() {
 }
 
 const computeFractionFromDollars = (arrayDollarAmountsString) => {
-  const arrayDollarAmounts = arrayDollarAmountsString.map((tx) => Number(tx));
+  const arrayDollarAmounts = arrayDollarAmountsString.map(Number);
   const totalSum = sumArray(arrayDollarAmounts);
   return arrayDollarAmounts.map((tx) => tx / totalSum);
 };
@@ -143,7 +146,7 @@ function renormalizeDeltas(deltasArray, investmentValue) {
 
 function postProcessDeltas(deltasArray, investmentValue) {
   // Take care of the case when deltas have opposite values.
-  const result = renormalizeDeltas(deltasArray, investmentValue).map((tx) => Math.ceil(tx));
+  const result = renormalizeDeltas(deltasArray, investmentValue).map(Math.trunc);
   // Fix for rounding error. We invest in integer dollars => we need to account for this.
   const gap = investmentValue - sumArray(result);
   result[1] += gap;
