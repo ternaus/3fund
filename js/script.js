@@ -20,16 +20,20 @@ const vtiaxToInvestPercent = document.getElementById('vtiax_to_invest_percent');
 const resultInvestingDollars = document.getElementById('result_investing_dollars');
 const PRECISION = 2;
 
-// eslint-disable-next-line no-magic-numbers
-const sumArray = (arrayToSum) => arrayToSum.reduce((ta, tb) => ta + tb, 0);
+function sumArray(arrayToSum) {
+  // eslint-disable-next-line no-magic-numbers
+  return arrayToSum.reduce((ta, tb) => ta + tb, 0);
+}
 
-const computeTotalDollarAmount = () => sumArray([vbtlxBeforeDollars,
-  vtsaxBeforeDollars,
-  vtiaxBeforeDollars].map((dollarValueString) => Number(dollarValueString.value)));
+function computeTotalDollarAmount() {
+  return sumArray([vbtlxBeforeDollars,
+    vtsaxBeforeDollars,
+    vtiaxBeforeDollars].map((tx) => Number(tx.value)));
+}
 
-const renderTotalDollarAmount = () => {
+function renderTotalDollarAmount() {
   totalBeforeDollars.textContent = `$${String(computeTotalDollarAmount())}`;
-};
+}
 
 const computeFractionFromDollars = (arrayDollarAmountsString) => {
   const arrayDollarAmounts = arrayDollarAmountsString.map((tx) => Number(tx));
@@ -37,10 +41,12 @@ const computeFractionFromDollars = (arrayDollarAmountsString) => {
   return arrayDollarAmounts.map((tx) => tx / totalSum);
 };
 
-// eslint-disable-next-line no-magic-numbers
-const printPercentFromFraction = (fraction) => (100 * fraction).toFixed(PRECISION);
+function printPercentFromFraction(fraction) {
+  // eslint-disable-next-line no-magic-numbers
+  return (100 * fraction).toFixed(PRECISION);
+}
 
-const computeAndRenderBeforePercents = () => {
+function computeAndRenderBeforePercents() {
   const totalDollarAmount = computeTotalDollarAmount();
   // eslint-disable-next-line no-magic-numbers
   if (totalDollarAmount > 0) {
@@ -52,7 +58,7 @@ const computeAndRenderBeforePercents = () => {
     vtsaxBeforePercent.textContent = printPercentFromFraction(fractionFromDollars[1]);
     vtiaxBeforePercent.textContent = printPercentFromFraction(fractionFromDollars[2]);
   }
-};
+}
 
 const addHandlerBeforeDollars = (beforeDollarsField) => {
   beforeDollarsField.addEventListener('focusout', () => {
@@ -67,9 +73,9 @@ const addHandlerBeforeDollars = (beforeDollarsField) => {
 
 // eslint-disable-next-line func-style
 function renderTotalTargetPercent() {
-  totalTargetPercent.textContent = String([vbtlxTargetPercent,
+  totalTargetPercent.textContent = String(sumArray([vbtlxTargetPercent,
     vtsaxTargetPercent,
-    vtiaxTargetPercent].map((tx) => Number(tx.value)));
+    vtiaxTargetPercent].map((tx) => Number(tx.value))));
 }
 
 const addHandlerTargetPercent = (targetPercentField) => {
@@ -88,10 +94,15 @@ function computeDeltas(fractionArray, beforeDollarsArray, investmentDollars, tot
   return fractionArray.map((num, idx) => num * resultDollars - beforeDollarsArray[idx]);
 }
 
-const addTwoArrays = (arrayA, arrayB) => arrayA.map((num, idx) => num + arrayB[idx]);
+function addTwoArrays(arrayA, arrayB) {
+  return arrayA.map((num, idx) => num + arrayB[idx]);
+}
 
 // eslint-disable-next-line no-magic-numbers
-const percentToFraction = (number) => number / 100;
+function percentToFraction(number) {
+  // eslint-disable-next-line no-magic-numbers
+  return number / 100;
+}
 
 function assignToInvest(deltasArray) {
   vbtlxToInvest.textContent = String(deltasArray[0]);

@@ -1,6 +1,10 @@
 {
   "env": {
-    "browser": true
+    "browser": true,
+    "es2021": true
+  },
+  "parserOptions": {
+    "sourceType": "script"
   },
   "extends": ["airbnb-base", "plugin:prettier/recommended"],
   "plugins": ["prettier"],
@@ -169,7 +173,7 @@
     // Best Practices -- end
 
     // Strict Mode -- start
-//    "strict": "error",
+    //    "strict": "error",
     // Strict Mode -- end
 
     // Variables -- start
@@ -203,7 +207,7 @@
     "func-call-spacing": "error",
     "func-name-matching": "error",
     "func-names": "error",
-//    "func-style": "error",
+    //    "func-style": "error",
     "function-call-argument-newline": "error",
     "function-paren-newline": "error",
     "id-denylist": "error",
