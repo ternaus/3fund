@@ -21,7 +21,7 @@
 <body>
 
 <div class="container">
-	<div class="bg-light p-5 rounded-lg m-3">
+	<div class="bg-light text-dark p-5 rounded-lg m-3">
 		<h1 class="text-center display-5">Three-fund portfolio calculator</h1>
 		<p class="text-center lead">This WebApp helps computing investment amounts to the base three indices.</p>
 		<hr class="my-4">
@@ -63,6 +63,7 @@
 
 	<form class="row">
 		<div class="col-md-4">
+			<span class="display-6"><p class="bg-primary text-light text-center">Before</p></span>
 			<table class="table table-bordered table-sm">
 				<thead class="table-info">
 				<tr>
@@ -198,17 +199,18 @@
 			</table>
 		</div>
 		<div class="col-md-4">
+			<span class="display-6"><p class="bg-secondary text-light text-center">Investment</p></span>
 			<div>
-				<label class="form-label" for="investment">Investment.</label>
 				<div class="input-group ">
 					<span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
 					<input class="form-control" id="investment" required step="1" type="number" value="0"/>
 
 				</div>
-				<button class="btn btn-primary" id="submit_button" type="submit">Compute</button>
+				<button class="btn btn-secondary" id="submit_button" type="submit">Compute</button>
 			</div>
 		</div>
 		<div class="col-md-4">
+			<span class="display-6"><p class="bg-success text-light color-white text-center">After</p></span>
 			<table class="table table-bordered">
 				<thead class="table-info">
 				<tr>
