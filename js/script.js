@@ -12,8 +12,10 @@ const vtsaxTargetPercent = document.getElementById('vtsax_target_percent');
 const vtiaxTargetPercent = document.getElementById('vtiax_target_percent');
 const totalTargetPercent = document.getElementById('total_target_percent');
 
-const submitButton = document.getElementById('submit_button');
 const investment = document.getElementById('investment');
+const submitButton = document.getElementById('submit_button');
+const errorMessage = document.getElementById('error_message');
+
 const vbtlxToInvest = document.getElementById('vbtlx_to_invest');
 const vtsaxToInvest = document.getElementById('vtsax_to_invest');
 const vtiaxToInvest = document.getElementById('vtiax_to_invest');
@@ -107,7 +109,6 @@ function addTwoArrays(arrayA, arrayB) {
   return arrayA.map((num, idx) => num + arrayB[idx]);
 }
 
-// eslint-disable-next-line no-magic-numbers
 function percentToFraction(number) {
   // eslint-disable-next-line no-magic-numbers
   return number / 100;
@@ -175,5 +176,16 @@ function computeAndRenderInvestments() {
 
 submitButton.addEventListener('click', (event) => {
   event.preventDefault();
+  if (investment.value === '0' || investment.value === '') {
+    errorMessage.textContent = 'Investment should be nonzero!';
+    return;
+  }
+
+  if (Number(totalTargetPercent.textContent) !== 100) {
+    errorMessage.textContent = 'Target percent should be equal to 100!';
+    return;
+  }
+
+  errorMessage.textContent = '';
   computeAndRenderInvestments();
 });
