@@ -2,6 +2,8 @@
 
 WebApp to compute investments following 3fund strategy.
 
+Hosted at [https://3fund.netlify.app/](https://3fund.netlify.app/)
+
 ## To contribute
 
 ### Install and initialize pre-commit hook
