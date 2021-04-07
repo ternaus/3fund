@@ -18,6 +18,12 @@ const vbtlxToInvestPercent = document.getElementById('vbtlx_to_invest_percent');
 const vtsaxToInvestPercent = document.getElementById('vtsax_to_invest_percent');
 const vtiaxToInvestPercent = document.getElementById('vtiax_to_invest_percent');
 const resultInvestingDollars = document.getElementById('result_investing_dollars');
+
+const vbtlxAfterInvestment = document.getElementById('vbtlx_after_investment');
+const vtsaxAfterInvestment = document.getElementById('vtsax_after_investment');
+const vtiaxAfterInvestment = document.getElementById('vtiax_after_investment');
+const totalAfterInvestment = document.getElementById('total_after_investment');
+
 const PRECISION = 2;
 
 function sumArray(arrayToSum) {
@@ -108,12 +114,20 @@ function assignToInvest(deltasArray) {
   vbtlxToInvest.textContent = String(deltasArray[0]);
   vtsaxToInvest.textContent = String(deltasArray[1]);
   vtiaxToInvest.textContent = String(deltasArray[2]);
+  resultInvestingDollars.textContent = sumArray(deltasArray);
 }
 
 function assignToInvestPercent(willBeInvestedFractions) {
   vbtlxToInvestPercent.textContent = printPercentFromFraction(willBeInvestedFractions[0]);
   vtsaxToInvestPercent.textContent = printPercentFromFraction(willBeInvestedFractions[1]);
   vtiaxToInvestPercent.textContent = printPercentFromFraction(willBeInvestedFractions[2]);
+}
+
+function assignToInvestDollars(willBeInvestedDollars) {
+  vbtlxAfterInvestment.textContent = String(willBeInvestedDollars[0]);
+  vtsaxAfterInvestment.textContent = String(willBeInvestedDollars[1]);
+  vtiaxAfterInvestment.textContent = String(willBeInvestedDollars[2]);
+  totalAfterInvestment.textContent = String(sumArray(willBeInvestedDollars));
 }
 
 function renormalizeDeltas(deltasArray, investmentValue) {
@@ -149,13 +163,10 @@ function computeAndRenderInvestments() {
   let deltasArray = computeDeltas(fractionArray, beforeDollars, investmentValue, totalDollarsBefore);
 
   deltasArray = postProcessDeltas(deltasArray, investmentValue);
-
   assignToInvest(deltasArray);
 
-  resultInvestingDollars.textContent = sumArray(deltasArray);
-
   const finalDollarAllocationArray = addTwoArrays(beforeDollars, deltasArray);
-
+  assignToInvestDollars(finalDollarAllocationArray);
   assignToInvestPercent(computeFractionFromDollars(finalDollarAllocationArray));
 }
 
