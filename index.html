@@ -4,6 +4,7 @@
 	<meta charset="UTF-8"/>
 	<meta content="width=device-width, initial-scale=1" name="viewport"/>
 	<title>Compute 3fund investments.</title>
+	<link href="/css/custom.css" rel="stylesheet">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
 	<link
 		crossorigin="anonymous"
@@ -20,8 +21,48 @@
 <body>
 
 <div class="container">
-	<form class="row needs-validation row-cols-auto">
-		<div>
+	<div class="bg-light p-5 rounded-lg m-3">
+		<h1 class="text-center display-5">Three-fund portfolio calculator</h1>
+		<p class="text-center lead">This WebApp helps computing investment amounts to the base three indices.</p>
+		<hr class="my-4">
+		<p>In the book <a href="https://amzn.to/3wtFLz8">The Bogleheads' Guide to the Three-Fund Portfolio</a> authors
+			recommend
+			investing in three main index funds.
+		</p>
+		<p>We want funds to be <b>diverse, uncorrelated </b> and have <b> minimal fee.</b></p>
+
+		<p>
+			Authors propose to use:
+		</p>
+		<ul>
+			<li><a href="https://investor.vanguard.com/mutual-funds/profile/VBTLX">VBTLX: Vanguard Total Bond Market Index
+				Fund Admiral Shares</a></li>
+			<li><a href="">VTSAX: Vanguard Total Stock Market Index Fund Admiral Shares</a></li>
+			<li><a href="">VTIAX: Vanguard Total International Stock Index Fund Admiral Shares</a></li>
+		</ul>
+		<p>
+			or similar.
+		</p>
+
+		<p>The do not tell what should be the ratio of the portfolio in each fund, but suggest the following numbers as a
+			baseline:</p>
+		<ul>
+			<li>
+				<b>VBTLX</b>: Your age.
+			</li>
+			<li>
+				<b>VTSAX</b>: 100%  - <b>VTIAX</b>% - (your age)%
+			</li>
+			<li>
+				<b>VTIAX</b>: 20%
+			</li>
+		</ul>
+		<p>You can use the above values, or decrease bond component if you are less risk averse and increase if you are.</p>
+	</div>
+
+
+	<form class="row">
+		<div class="col-md-4">
 			<table class="table table-bordered table-sm">
 				<thead class="table-info">
 				<tr>
@@ -156,7 +197,7 @@
 				</tbody>
 			</table>
 		</div>
-		<div>
+		<div class="col-md-4">
 			<div>
 				<label class="form-label" for="investment">Investment.</label>
 				<div class="input-group ">
@@ -167,7 +208,7 @@
 				<button class="btn btn-primary" id="submit_button" type="submit">Compute</button>
 			</div>
 		</div>
-		<div>
+		<div class="col-md-4">
 			<table class="table table-bordered">
 				<thead class="table-info">
 				<tr>
