@@ -1,143 +1,138 @@
-const vbtlxBeforeDollars = document.getElementById("vbtlx_before_dollars")
-const vtsax_before_dollars = document.getElementById("vtsax_before_dollars")
-const vtiax_before_dollars = document.getElementById("vtiax_before_dollars")
-const total_before_dollars = document.getElementById("total_before_dollars")
+const vbtlxBeforeDollars = document.getElementById('vbtlx_before_dollars');
+const vtsaxBeforeDollars = document.getElementById('vtsax_before_dollars');
+const vtiaxBeforeDollars = document.getElementById('vtiax_before_dollars');
+const totalBeforeDollars = document.getElementById('total_before_dollars');
+const vbtlxBeforePercent = document.getElementById('vbtlx_before_percent');
+const vtsaxBeforePercent = document.getElementById('vtsax_before_percent');
+const vtiaxBeforePercent = document.getElementById('vtiax_before_percent');
+const vbtlxTargetPercent = document.getElementById('vbtlx_target_percent');
+const vtsaxTargetPercent = document.getElementById('vtsax_target_percent');
+const vtiaxTargetPercent = document.getElementById('vtiax_target_percent');
+const totalTargetPercent = document.getElementById('total_target_percent');
+const submitButton = document.getElementById('submit_button');
+const investment = document.getElementById('investment');
+const vbtlxToInvest = document.getElementById('vbtlx_to_invest');
+const vtsaxToInvest = document.getElementById('vtsax_to_invest');
+const vtiaxToInvest = document.getElementById('vtiax_to_invest');
+const vbtlxToInvestPercent = document.getElementById('vbtlx_to_invest_percent');
+const vtsaxToInvestPercent = document.getElementById('vtsax_to_invest_percent');
+const vtiaxToInvestPercent = document.getElementById('vtiax_to_invest_percent');
+const resultInvestingDollars = document.getElementById('result_investing_dollars');
+const PRECISION = 2;
 
-const vbtlx_before_percent = document.getElementById("vbtlx_before_percent")
-const vtsax_before_percent = document.getElementById("vtsax_before_percent")
-const vtiax_before_percent = document.getElementById("vtiax_before_percent")
+// eslint-disable-next-line no-magic-numbers
+const sumArray = (arrayToSum) => arrayToSum.reduce((ta, tb) => ta + tb, 0);
 
-const vbtlx_target_percent = document.getElementById("vbtlx_target_percent")
-const vtsax_target_percent = document.getElementById("vtsax_target_percent")
-const vtiax_target_percent = document.getElementById("vtiax_target_percent")
+const computeTotalDollarAmount = () => sumArray([vbtlxBeforeDollars,
+  vtsaxBeforeDollars,
+  vtiaxBeforeDollars].map((dollarValueString) => Number(dollarValueString.value)));
 
-const total_target_percent = document.getElementById("total_target_percent")
-const submit_button = document.getElementById("submit_button")
-const investment = document.getElementById("investment")
+const renderTotalDollarAmount = () => {
+  totalBeforeDollars.textContent = `$${String(computeTotalDollarAmount())}`;
+};
 
-const vbtlx_to_invest = document.getElementById("vbtlx_to_invest")
-const vtsax_to_invest = document.getElementById("vtsax_to_invest")
-const vtiax_to_invest = document.getElementById("vtiax_to_invest")
+const computeFractionFromDollars = (arrayDollarAmountsString) => {
+  const arrayDollarAmounts = arrayDollarAmountsString.map((tx) => Number(tx));
+  const totalSum = sumArray(arrayDollarAmounts);
+  return arrayDollarAmounts.map((tx) => tx / totalSum);
+};
 
-const vbtlx_to_invest_percent = document.getElementById("vbtlx_to_invest_percent")
-const vtsax_to_invest_percent = document.getElementById("vtsax_to_invest_percent")
-const vtiax_to_invest_percent = document.getElementById("vtiax_to_invest_percent")
+// eslint-disable-next-line no-magic-numbers
+const printPercentFromFraction = (fraction) => (100 * fraction).toFixed(PRECISION);
 
-const result_investing_dollars = document.getElementById("result_investing_dollars")
+const computeAndRenderBeforePercents = () => {
+  const totalDollarAmount = computeTotalDollarAmount();
+  // eslint-disable-next-line no-magic-numbers
+  if (totalDollarAmount > 0) {
+    const fractionFromDollars = computeFractionFromDollars([vbtlxBeforeDollars.value,
+      vtsaxBeforeDollars.value,
+      vtiaxBeforeDollars.value]);
 
-function compute_total_dollar_amount() {
-    return Number(vbtlxBeforeDollars.value) + Number(vtsax_before_dollars.value) + Number(vtiax_before_dollars.value);
+    vbtlxBeforePercent.textContent = printPercentFromFraction(fractionFromDollars[0]);
+    vtsaxBeforePercent.textContent = printPercentFromFraction(fractionFromDollars[1]);
+    vtiaxBeforePercent.textContent = printPercentFromFraction(fractionFromDollars[2]);
+  }
+};
+
+const addHandlerBeforeDollars = (beforeDollarsField) => {
+  beforeDollarsField.addEventListener('focusout', () => {
+    computeAndRenderBeforePercents();
+    renderTotalDollarAmount();
+  });
+};
+
+[vbtlxBeforeDollars,
+  vtsaxBeforeDollars,
+  vtiaxBeforeDollars].forEach(addHandlerBeforeDollars);
+
+// eslint-disable-next-line func-style
+function renderTotalTargetPercent() {
+  totalTargetPercent.textContent = String([vbtlxTargetPercent,
+    vtsaxTargetPercent,
+    vtiaxTargetPercent].map((tx) => Number(tx.value)));
 }
 
-function render_total_dollar_amount() {
-    total_before_dollars.textContent = "$" + String(compute_total_dollar_amount());
+const addHandlerTargetPercent = (targetPercentField) => {
+  targetPercentField.addEventListener('focusout', () => {
+    renderTotalTargetPercent();
+  });
+};
+
+[vbtlxTargetPercent,
+  vtsaxTargetPercent,
+  vtiaxTargetPercent].forEach(addHandlerTargetPercent);
+
+// eslint-disable-next-line func-style,max-params
+function computeDeltas(fractionArray, beforeDollarsArray, investmentDollars, totalDollars) {
+  const resultDollars = totalDollars + investmentDollars;
+  return fractionArray.map((num, idx) => num * resultDollars - beforeDollarsArray[idx]);
 }
 
+const addTwoArrays = (arrayA, arrayB) => arrayA.map((num, idx) => num + arrayB[idx]);
 
-function compute_fraction_from_dollars(array_dollar_amounts) {
-    array_dollar_amounts = array_dollar_amounts.map(x => Number(x))
-    const total_sum = array_dollar_amounts.reduce((a, b) => a + b, 0)
+// eslint-disable-next-line no-magic-numbers
+const percentToFraction = (number) => number / 100;
 
-    return array_dollar_amounts.map(x => x / total_sum)
+function assignToInvest(deltasArray) {
+  vbtlxToInvest.textContent = String(deltasArray[0]);
+  vtsaxToInvest.textContent = String(deltasArray[1]);
+  vtiaxToInvest.textContent = String(deltasArray[2]);
 }
 
-function compute_and_render_before_percents() {
-    const total_dollar_amount = compute_total_dollar_amount();
-    if (total_dollar_amount > 0) {
-        const fraction_from_dollars = compute_fraction_from_dollars([vbtlxBeforeDollars.value, vtsax_before_dollars.value, vtiax_before_dollars.value])
-
-        vbtlx_before_percent.textContent = print_percent_from_fraction(fraction_from_dollars[0])
-        vtsax_before_percent.textContent = print_percent_from_fraction(fraction_from_dollars[1])
-        vtiax_before_percent.textContent = print_percent_from_fraction(fraction_from_dollars[2])
-    }
+function assignToInvestPercent(willBeInvestedFractions) {
+  vbtlxToInvestPercent.textContent = printPercentFromFraction(willBeInvestedFractions[0]);
+  vtsaxToInvestPercent.textContent = printPercentFromFraction(willBeInvestedFractions[1]);
+  vtiaxToInvestPercent.textContent = printPercentFromFraction(willBeInvestedFractions[2]);
 }
 
+function computeAndRenderInvestments() {
+  const totalDollars = computeTotalDollarAmount();
+  const fractionArray = [vbtlxTargetPercent,
+    vtsaxTargetPercent,
+    vtiaxTargetPercent].map((tx) => percentToFraction(tx.value));
+  const beforeDollars = [vbtlxBeforeDollars,
+    vtsaxBeforeDollars,
+    vtiaxBeforeDollars].map((tx) => Number(tx.value));
+  const investmentValue = Number(investment.value);
 
-function add_handler_before_dollars(x) {
-    x.addEventListener("focusout", () => {
-        compute_and_render_before_percents();
-        render_total_dollar_amount();
-    })
+  const deltasArray = computeDeltas(fractionArray,
+    beforeDollars,
+    investmentValue,
+    totalDollars).map((tx) => Math.round(tx));
+
+  // Fix for rounding error. We invest in integer dollars => we need to account for this.
+  deltasArray[1] += investmentValue - sumArray(deltasArray);
+
+  assignToInvest(deltasArray);
+
+  resultInvestingDollars.textContent = sumArray(deltasArray);
+
+  const finalDollarAllocationArray = addTwoArrays(beforeDollars, deltasArray);
+
+  assignToInvestPercent(computeFractionFromDollars(finalDollarAllocationArray));
 }
 
-[vbtlxBeforeDollars, vtsax_before_dollars, vtiax_before_dollars].forEach(add_handler_before_dollars)
-
-function render_total_target_percent() {
-    total_target_percent.textContent = String(Number(vbtlx_target_percent.value) + Number(vtsax_target_percent.value) + Number(vtiax_target_percent.value))
-}
-
-function add_handler_target_percent(x) {
-    x.addEventListener("focusout", () => {
-        render_total_target_percent()
-    })
-}
-
-[vbtlx_target_percent, vtsax_target_percent, vtiax_target_percent].forEach(add_handler_target_percent)
-
-function round(x, precision) {
-    const multiplier = Math.pow(10, precision)
-    return Math.round((x + Number.EPSILON) * multiplier) / multiplier
-}
-
-function compute_deltas(fraction_array, before_dollars_array, investment_dollars, total_dollars) {
-    const result = Array(3)
-
-    for (let i = 0; i < result.length; i++) {
-        result[i] = fraction_array[i] * (total_dollars + investment_dollars) - before_dollars_array[i]
-    }
-    return result
-}
-
-function add_two_arrays(x, y) {
-    const result = Array(x.length)
-
-    for (let i = 0; i < result.length; i++) {
-        result[i] = x[i] + y[i]
-
-    }
-    return result
-}
-
-function print_percent_from_fraction(x) {
-    return (100 * x).toFixed(2)
-}
-
-
-function compute_and_render_investments(x) {
-    const total_dollars = compute_total_dollar_amount()
-    const fraction_array = [vbtlx_target_percent, vtsax_target_percent, vtiax_target_percent].map(x => Number(x.value) / 100)
-    const before_dollars = [vbtlxBeforeDollars, vtsax_before_dollars, vtiax_before_dollars].map(x => Number(x.value))
-    const investment_value = Number(investment.value)
-
-    const deltas_array = compute_deltas(fraction_array, before_dollars, investment_value, total_dollars)
-
-    const delta_vbtlx = round(deltas_array[0], 2)
-    let delta_vtsax = round(deltas_array[1], 2)
-    const delta_vtiax = round(deltas_array[2], 2)
-
-    let delta_total = delta_vbtlx + delta_vtsax + delta_vtiax
-
-    const investment_difference = investment_value - delta_total
-
-    delta_vtsax += investment_difference
-
-    vbtlx_to_invest.textContent = String(delta_vbtlx)
-    vtsax_to_invest.textContent = String(delta_vtsax)
-    vtiax_to_invest.textContent = String(delta_vtiax)
-
-    result_investing_dollars.textContent = delta_vbtlx + delta_vtsax + delta_vtiax
-
-    const final_dollar_allocation_array = add_two_arrays(before_dollars, [delta_vbtlx, delta_vtsax, delta_vtiax])
-
-    const will_be_invested_fractions = compute_fraction_from_dollars(final_dollar_allocation_array)
-
-    vbtlx_to_invest_percent.textContent = print_percent_from_fraction(will_be_invested_fractions[0])
-    vtsax_to_invest_percent.textContent = print_percent_from_fraction(will_be_invested_fractions[1])
-    vtiax_to_invest_percent.textContent = print_percent_from_fraction(will_be_invested_fractions[2])
-
-}
-
-submit_button.addEventListener("click", (event) => {
-    event.preventDefault()
-    compute_and_render_investments()
-})
+submitButton.addEventListener('click', (event) => {
+  event.preventDefault();
+  computeAndRenderInvestments();
+});

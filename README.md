@@ -10,3 +10,15 @@ WebApp to compute investments following 3fund strategy.
 pip install pre-commit
 pre-commit install
 ```
+
+### Install Husky Hook
+
+```
+npm set-script prepare "husky install" && npm run prepare
+```
+
+Add a hook:
+
+```
+npx husky add .husky/pre-commit "npm test"
+```
