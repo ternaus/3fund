@@ -116,8 +116,28 @@ function assignToInvestPercent(willBeInvestedFractions) {
   vtiaxToInvestPercent.textContent = printPercentFromFraction(willBeInvestedFractions[2]);
 }
 
+function renormalizeDeltas(deltasArray, investmentValue) {
+  let deltasArrayNormalized = Array(deltasArray.length);
+  if (investmentValue > 0) {
+    deltasArrayNormalized = deltasArray.map((tx) => Math.max(tx, 0));
+  } else if (investmentValue < 0) {
+    deltasArrayNormalized = deltasArray.map((tx) => Math.min(tx, 0));
+  }
+  const normalizationConstant = Math.abs(investmentValue / sumArray(deltasArrayNormalized));
+  return deltasArrayNormalized.map((tx) => tx * normalizationConstant);
+}
+
+function postProcessDeltas(deltasArray, investmentValue) {
+  // Take care of the case when deltas have opposite values.
+  const result = renormalizeDeltas(deltasArray, investmentValue).map((tx) => Math.ceil(tx));
+  // Fix for rounding error. We invest in integer dollars => we need to account for this.
+  const gap = investmentValue - sumArray(result);
+  result[1] += gap;
+  return result;
+}
+
 function computeAndRenderInvestments() {
-  const totalDollars = computeTotalDollarAmount();
+  const totalDollarsBefore = computeTotalDollarAmount();
   const fractionArray = [vbtlxTargetPercent,
     vtsaxTargetPercent,
     vtiaxTargetPercent].map((tx) => percentToFraction(tx.value));
@@ -126,13 +146,9 @@ function computeAndRenderInvestments() {
     vtiaxBeforeDollars].map((tx) => Number(tx.value));
   const investmentValue = Number(investment.value);
 
-  const deltasArray = computeDeltas(fractionArray,
-    beforeDollars,
-    investmentValue,
-    totalDollars).map((tx) => Math.round(tx));
+  let deltasArray = computeDeltas(fractionArray, beforeDollars, investmentValue, totalDollarsBefore);
 
-  // Fix for rounding error. We invest in integer dollars => we need to account for this.
-  deltasArray[1] += investmentValue - sumArray(deltasArray);
+  deltasArray = postProcessDeltas(deltasArray, investmentValue);
 
   assignToInvest(deltasArray);
 
