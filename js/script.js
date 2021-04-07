@@ -27,7 +27,7 @@ const vtsaxAfterInvestment = document.getElementById('vtsax_after_investment');
 const vtiaxAfterInvestment = document.getElementById('vtiax_after_investment');
 const totalAfterInvestment = document.getElementById('total_after_investment');
 
-const PRECISION = 2;
+const PRECISION = 1;
 
 function sumArray(arrayToSum) {
   // eslint-disable-next-line no-magic-numbers
