@@ -14,11 +14,13 @@
 	<link href="css/custom.css" rel="stylesheet">
 	<script
 		crossorigin="anonymous"
+		defer
 		integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
 	></script>
-<!--	Google AdSense-->
-	<script data-ad-client="ca-pub-8265064670504256" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<!--	Google AdSense-->
+	<script async data-ad-client="ca-pub-8265064670504256"
+	        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 <body>
 
@@ -51,7 +53,7 @@
 				<b>VBTLX</b>: Your age.
 			</li>
 			<li>
-				<b>VTSAX</b>: 100%  - <b>VTIAX</b>% - (your age)%
+				<b>VTSAX</b>: 100% - <b>VTIAX</b>% - (your age)%
 			</li>
 			<li>
 				<b>VTIAX</b>: 20%
@@ -67,10 +69,10 @@
 			<table class="table table-bordered table-sm">
 				<thead class="table-info">
 				<tr>
-					<th style="width:16%" scope="col">Index</th>
-					<th style="width:39%" scope="col">Invested</th>
-					<th style="width:22%" scope="col">Invested</th>
-					<th style="width:23%" scope="col">Target</th>
+					<th scope="col" style="width:16%">Index</th>
+					<th scope="col" style="width:39%">Invested</th>
+					<th scope="col" style="width:22%">Invested</th>
+					<th scope="col" style="width:23%">Target</th>
 				</tr>
 				</thead>
 				<tbody>
@@ -207,7 +209,7 @@
 
 				</div>
 				<button class="btn btn-secondary btn-sm m-3" id="submit_button" type="submit">Compute</button>
-				<div id="error_message" class="text-danger text-center"></div>
+				<div class="text-danger text-center" id="error_message"></div>
 			</div>
 		</div>
 		<div class="col-md-5 py-4">
@@ -215,10 +217,10 @@
 			<table class="table table-bordered table-md">
 				<thead class="table-info">
 				<tr>
-					<th style="width:20%" scope="col">Index</th>
-					<th style="width:30%" scope="col">Investment</th>
-					<th style="width:25%" scope="col">Result</th>
-					<th style="width:25%" scope="col">Result</th>
+					<th scope="col" style="width:20%">Index</th>
+					<th scope="col" style="width:30%">Investment</th>
+					<th scope="col" style="width:25%">Result</th>
+					<th scope="col" style="width:25%">Result</th>
 				</tr>
 				</thead>
 				<tbody>
