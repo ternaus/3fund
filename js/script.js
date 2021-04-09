@@ -31,6 +31,11 @@ const totalAfterInvestment = document.getElementById('total_after_investment');
 
 const PRECISION = 1;
 
+function currencyFormat(num) {
+  // eslint-disable-next-line prefer-named-capture-group
+  return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/gu, '$1,');
+}
+
 function sumArray(arrayToSum) {
   // eslint-disable-next-line no-magic-numbers
   return arrayToSum.reduce((ta, tb) => ta + tb, 0);
@@ -43,7 +48,7 @@ function computeTotalDollarAmount() {
 }
 
 function renderTotalDollarAmount() {
-  totalBeforeDollars.textContent = String(computeTotalDollarAmount());
+  totalBeforeDollars.textContent = currencyFormat(computeTotalDollarAmount());
 }
 
 const computeFractionFromDollars = (arrayDollarAmountsString) => {
@@ -84,9 +89,9 @@ const addHandlerBeforeDollars = (beforeDollarsField) => {
 
 // eslint-disable-next-line func-style
 function renderTotalTargetPercent() {
-  totalTargetPercent.textContent = String(sumArray([vbtlxTargetPercent,
+  totalTargetPercent.textContent = sumArray([vbtlxTargetPercent,
     vtsaxTargetPercent,
-    vtiaxTargetPercent].map((tx) => Number(tx.value))));
+    vtiaxTargetPercent].map((tx) => Number(tx.value))).toFixed(1);
 }
 
 const addHandlerTargetPercent = (targetPercentField) => {
@@ -128,10 +133,10 @@ function assignToInvestPercent(willBeInvestedFractions) {
 }
 
 function assignToInvestDollars(willBeInvestedDollars) {
-  vbtlxAfterInvestment.textContent = String(willBeInvestedDollars[0]);
-  vtsaxAfterInvestment.textContent = String(willBeInvestedDollars[1]);
-  vtiaxAfterInvestment.textContent = String(willBeInvestedDollars[2]);
-  totalAfterInvestment.textContent = String(sumArray(willBeInvestedDollars));
+  vbtlxAfterInvestment.textContent = currencyFormat(willBeInvestedDollars[0]);
+  vtsaxAfterInvestment.textContent = currencyFormat(willBeInvestedDollars[1]);
+  vtiaxAfterInvestment.textContent = currencyFormat(willBeInvestedDollars[2]);
+  totalAfterInvestment.textContent = currencyFormat(sumArray(willBeInvestedDollars));
 }
 
 function renormalizeDeltas(deltasArray, investmentValue) {

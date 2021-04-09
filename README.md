@@ -24,3 +24,8 @@ Add a hook:
 ```
 npx husky add .husky/pre-commit "npm test"
 ```
+
+TODO:
+
+- Add money formatting
+- Fix total sum => should be at most two digits after decimal point.
