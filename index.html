@@ -43,16 +43,16 @@
 				>VBTLX: Vanguard Total Bond Market Index Fund Admiral Shares</a
 				>
 			</li>
-			<li><a href="">VTSAX: Vanguard Total Stock Market Index Fund Admiral Shares</a></li>
 			<li><a href="">VTIAX: Vanguard Total International Stock Index Fund Admiral Shares</a></li>
+			<li><a href="">VTSAX: Vanguard Total Stock Market Index Fund Admiral Shares</a></li>
 		</ul>
 		<p>or similar.</p>
 
 		<p>They suggest the following numbers as a baseline:</p>
 		<ul>
 			<li><b>VBTLX</b>: Your age.</li>
-			<li><b>VTSAX</b>: 100% - <b>VTIAX</b>% - (your age)%</li>
 			<li><b>VTIAX</b>: 20%</li>
+			<li><b>VTSAX</b>: 100% - <b>VTIAX</b>% - (your age)%</li>
 		</ul>
 		<p>
 			You can use the above values or increase the bond component if you are risk-averse and decrease otherwise.
@@ -108,42 +108,6 @@
 					</td>
 				</tr>
 				<tr>
-					<td>VTSAX</td>
-					<td>
-						<div class="input-group input-group-sm">
-							<span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
-							<input
-								class="form-control"
-								id="vtsax_before_dollars"
-								min="0"
-								required
-								step="0.01"
-								type="number"
-								value="0"
-							/>
-						</div>
-					</td>
-
-					<td>
-						<span id="vtsax_before_percent"></span>
-						<i aria-hidden="true" class="float-end fa fa-percent"></i>
-					</td>
-					<td>
-						<div class="input-group input-group-sm">
-							<input
-								class="form-control"
-								id="vtsax_target_percent"
-								max="100"
-								min="0"
-								required
-								step="0.01"
-								type="number"
-							/>
-							<span class="input-group-text"><i aria-hidden="true" class="fa fa-percent"></i></span>
-						</div>
-					</td>
-				</tr>
-				<tr>
 					<td>VTIAX</td>
 					<td>
 						<div class="input-group input-group-sm">
@@ -179,6 +143,42 @@
 						</div>
 					</td>
 				</tr>
+				<tr>
+					<td>VTSAX</td>
+					<td>
+						<div class="input-group input-group-sm">
+							<span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+							<input
+								class="form-control"
+								id="vtsax_before_dollars"
+								min="0"
+								required
+								step="0.01"
+								type="number"
+								value="0"
+							/>
+						</div>
+					</td>
+					<td>
+						<span id="vtsax_before_percent"></span>
+						<i aria-hidden="true" class="float-end fa fa-percent"></i>
+					</td>
+					<td>
+						<div class="input-group input-group-sm">
+							<input
+								class="form-control"
+								id="vtsax_target_percent"
+								max="100"
+								min="0"
+								required
+								step="0.01"
+								type="number"
+							/>
+							<span class="input-group-text"><i aria-hidden="true" class="fa fa-percent"></i></span>
+						</div>
+					</td>
+				</tr>
+
 				<tr>
 					<td>Total</td>
 					<td>
@@ -236,21 +236,6 @@
 					</td>
 				</tr>
 				<tr>
-					<td>VTSAX</td>
-					<td>
-						<i class="fas fa-dollar-sign"></i>
-						<span id="vtsax_to_invest"></span>
-					</td>
-					<td>
-						<i class="fas fa-dollar-sign"></i>
-						<span id="vtsax_after_investment"></span>
-					</td>
-					<td>
-						<span id="vtsax_to_invest_percent"></span>
-						<i aria-hidden="true" class="fa fa-percent float-end"></i>
-					</td>
-				</tr>
-				<tr>
 					<td>VTIAX</td>
 					<td>
 						<i class="fas fa-dollar-sign"></i>
@@ -265,6 +250,22 @@
 						<i aria-hidden="true" class="fa fa-percent float-end"></i>
 					</td>
 				</tr>
+				<tr>
+					<td>VTSAX</td>
+					<td>
+						<i class="fas fa-dollar-sign"></i>
+						<span id="vtsax_to_invest"></span>
+					</td>
+					<td>
+						<i class="fas fa-dollar-sign"></i>
+						<span id="vtsax_after_investment"></span>
+					</td>
+					<td>
+						<span id="vtsax_to_invest_percent"></span>
+						<i aria-hidden="true" class="fa fa-percent float-end"></i>
+					</td>
+				</tr>
+
 				<tr>
 					<td>Total</td>
 					<td>
